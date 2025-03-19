@@ -1,6 +1,11 @@
 const buttonContainer = document.querySelector(".buttons-container");
 const mainContainer = document.querySelector(".container");
-let firstNumber, secondNumber, operator;
+const display = document.querySelector(".display");
+const buttons = document.querySelectorAll("button");
+let firstNumber,
+  secondNumber,
+  operator,
+  calculation = [];
 
 function add(firstNumber, secondNumber) {
   return firstNumber + secondNumber;
@@ -32,5 +37,9 @@ function operate(firstNumber, operator, secondNumber) {
   }
 }
 
-console.log(operate(7, "-", 8));
-console.log(buttonContainer);
+buttons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    calculation.push(btn.textContent);
+    console.log(calculation);
+  });
+});
