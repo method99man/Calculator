@@ -9,16 +9,13 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: rgb(51, 84, 84);
+  background-image: linear-gradient(to right, #00aaff, #00ff6c);
 }
 
 .container {
   margin-top: 75px;
-  padding: 20px;
+  padding: 10px 5px;
   width: 300px;
-  border: none;
-  border-radius: 10px;
-  background-color: rgb(211, 211, 211);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,24 +23,25 @@ body {
 }
 
 .buttons-container {
-  width: 232px;
+  width: 225px;
+  margin: auto;
   display: flex;
   flex-wrap: wrap;
 }
 
 button {
-  background-color: rgb(121, 129, 129);
-  border: none;
-  color: #fff;
-  font-size: 40px;
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
-  margin: 4px;
+  background-color: rgb(255, 255, 255, 0.75);
+  border: 0.5px solid white;
+  outline: none;
+  color: #000;
+  font-size: 2rem;
+  width: 56px;
+  height: 56px;
+  cursor: pointer;
 }
 
 button:hover {
-  background-color: rgb(111, 110, 110);
+  background-color: rgb(255, 255, 255, 0.9);
 }
 
 button:active {
@@ -59,7 +57,7 @@ button:active {
 }
 
 #clear {
-  width: 100%;
+  width: 220px;
   background-color: rgb(252, 226, 27);
   font-size: 30px;
 }
@@ -69,12 +67,12 @@ button:active {
 }
 
 .display {
-  margin-bottom: 10px;
   width: 224px;
-  height: 50px;
-  background-color: rgb(176, 205, 176);
+  height: 75px;
+  background-color: rgb(0, 0, 0, 0.75);
+  color: white;
   font-size: 40px;
-  border-radius: 7px;
+  border-radius: 3px;
   text-align: end;
   padding: 4px;
   font-size: 35px;

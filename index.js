@@ -2,6 +2,7 @@ class Calculator {
   constructor(currentOperandTextElement) {
     this.currentOperandTextElement = currentOperandTextElement;
     this.clear();
+    this.justComputed = false;
   }
 
   removeElementsFromArray(arr) {
@@ -10,50 +11,87 @@ class Calculator {
   }
 
   clear() {
-    this.currentOperand = "";
+    this.currentOperand = "0";
     this.operation = undefined;
   }
 
   appendNumber(number) {
+    if (this.currentOperand === "Error!") {
+      this.currentOperand = "";
+    }
+
+    if (this.justComputed) {
+      this.currentOperand = "";
+      this.justComputed = false;
+    }
     if (number === "." && this.currentOperand.includes(".")) return;
-    this.currentOperand = this.currentOperand.toString() + number.toString();
+    this.currentOperand =
+      this.currentOperand === "0"
+        ? number.toString()
+        : this.currentOperand.toString() + number.toString();
   }
 
   chooseOperation(operation) {
-    if (this.currentOperand === 0 || this.currentOperand === "") return;
-    if (this.currentOperand !== "") {
+    if (this.currentOperand === 0 || this.currentOperand === "Error!") return;
+
+    if (this.justComputed) {
+      this.justComputed = false;
+      this.operation = operation;
+      this.currentOperand = this.currentOperand.toString() + operation;
+      return;
+    }
+    if (this.operation) {
       this.compute();
     }
     this.operation = operation;
+    this.currentOperand = this.currentOperand.toString();
     this.currentOperand += this.operation;
   }
 
   compute() {
+    if (!this.operation) return;
+
     let computation;
-    let listOfNumbers = this.removeElementsFromArray([...this.currentOperand]);
-    console.log(listOfNumbers);
+
+    const [firstNumber, secondNumber] = this.currentOperand.split(
+      this.operation
+    );
+
+    const first = parseFloat(firstNumber);
+    const second = parseFloat(secondNumber);
+
+    if (isNaN(first) || isNaN(second)) return;
 
     const current = parseFloat(this.currentOperand);
 
     if (isNaN(current)) return;
     switch (this.operation) {
       case "+":
-        computation = Number(listOfNumbers[0]) + Number(listOfNumbers[1]);
+        computation = first + second;
         break;
       case "-":
-        computation = Number(listOfNumbers[0]) - Number(listOfNumbers[1]);
+        computation = first - second;
         break;
       case "*":
-        computation = Number(listOfNumbers[0]) * Number(listOfNumbers[1]);
+        computation = first * second;
         break;
       case "/":
-        computation = Number(listOfNumbers[0]) / Number(listOfNumbers[1]);
+        if (second == 0) {
+          computation = "Error!";
+        } else {
+          computation = first / second;
+        }
         break;
+
       default:
         return;
     }
-    this.currentOperand = computation;
+    this.currentOperand =
+      typeof computation === "number"
+        ? parseFloat(computation.toFixed(2))
+        : computation;
     this.operation = undefined;
+    this.justComputed = true;
   }
 
   updateDisplay() {
